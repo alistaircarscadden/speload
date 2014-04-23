@@ -71,7 +71,7 @@ void drawTitle()
   fill(255, 0, 0);
   titleFont = loadFont("DialogInput.plain-96.vlw");
   textFont(titleFont);
-  text("SPELOAD", 200, 150);  
+  text("SPELOAD!", 200, 150);  
 }
 
 void drawMenu()
