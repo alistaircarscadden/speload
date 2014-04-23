@@ -1,0 +1,53 @@
+/**
+  * Block types:
+  * 0: air      : unmineable  :
+  * 1: dirt     : 0           :
+  * 2: stone    : unmineable  :
+  * 3: copper   : 3           :
+  * 4: iron     : 4           :
+  * 5: silver   : 5           :
+  * 6: gold     : 6           :
+  * 7: gem      : 7           :
+  * 8: diamond  : 8          :
+  * 9: lava     : 9      :
+  */
+Color[] colours = new Color[10];
+
+// in setup :::::
+/*
+  colours[0] = new Color(0, 0, 0);
+  colours[1] = new Color(165,42,42);
+  colours[2] = new Color(169,169,169);
+  colours[3] = new Color(107,142,35);
+  colours[4] = new Color(128,128,128);
+  colours[5] = new Color(211,211,211);
+  colours[6] = new Color(255,215,0);
+  colours[7] = new Color(0, 0, 0);
+  colours[8] = new Color(173,216,230);
+  colours[9] = new Color(255, 0, 0);
+  
+*/  
+class Block
+{
+  int type, value;
+  Color colour;
+  Block(int type, int value)
+  {
+    this.type = type;
+    this.value = value;
+    if (random(0, 5) > 1.5) // This will create 30% hidden minerals
+      colour = colours[type];
+    else
+      colour = colours[1];
+  }
+ Block()
+ {
+   this.type = 0;
+   this.value = 0;
+ }
+ 
+ boolean hadHiddenValue()
+ {
+   return (this.type == this.value);
+ }
+}
