@@ -1,0 +1,49 @@
+int choice;
+boolean start = true;
+boolean instructions = false;
+
+void setup()
+{
+  size(400,400);
+  background(color(255));
+  smooth();
+}
+
+void draw()
+{
+  if (instructions)
+    return;
+  
+  background(255);
+  if (start)
+  {
+    fill(color(255));
+    rect(50,50,80,25);
+    rect(250, 50, 80, 25);
+    fill(color(0));
+    text("Play Game", 60, 70);
+    text("Instructions", 260, 70);
+  }
+  else
+  {
+    text("Now we play the game", 200, 200);
+  }
+}
+
+void mouseReleased()
+{
+  if (instructions)
+    instructions = false;
+  if (mouseX >= 50 && mouseX <= 130 && mouseY >= 50 && mouseY <= 75)
+    start = false;
+  if (mouseX >= 250 && mouseX <= 330 && mouseY >= 50 && mouseY <= 75)
+  {
+    background(200);
+    text("Instructions:", 50, 100);
+    text("1) Score as many points as you can", 50, 150);
+    text("2) Don't die",50, 180);
+    text("Click the mouse to return to menu", 50, 250);
+    instructions = true;
+  }
+
+} 
