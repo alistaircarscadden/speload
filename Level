@@ -1,3 +1,16 @@
+/**
+ * 0: air      : unmineable  :
+ * 1: dirt     : 0           :
+ * 2: stone    : unmineable  :
+ * 3: copper   : 3           :
+ * 4: iron     : 4           :
+ * 5: silver   : 5           :
+ * 6: gold     : 6           :
+ * 7: gem      : 7           :
+ * 8: diamond  : 8           :
+ * 9: lava     : 9           :
+ */
+ 
 class Level
 {
   final int BLOCK_WIDTH = 30;
@@ -19,8 +32,14 @@ class Level
       {
         temp[i][ii] = 1;
         
-        if((int)random(30-lvl) == 0)
+        if((int)random(30) == 0) // first gen tries making the block into air, 1/30
+          temp[i][ii] = 0;
+        else if((int)random(30-lvl) == 0) // stones: 1/29 in 400 tile grid is ~13/map, as lvl increases so do stones
           temp[i][ii] = 2;
+        else if((int)random(20-lvl) == 0) // ores of any kind 1/(20-level)
+        {
+          
+        }
       }
     }
     return temp;
