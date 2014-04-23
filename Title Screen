@@ -1,0 +1,120 @@
+/* Note: Half of this shit is unnecessary */
+
+boolean keepDrawing = true;
+
+void setup()
+{
+  boolean menuInput = true;
+  size(800, 800);
+  drawTitleScreen();
+  
+  /*
+  while(menuInput)
+  {
+    menuInput = checkForInput();
+  }
+  */
+}
+
+void draw()
+{
+  while(mousePressed && keepDrawing)
+  {
+    drawInstructionsPage();
+    keepDrawing = false;
+  }
+}
+
+void drawTitleScreen ()
+{
+  final int BLOCK_SIZE = 20;
+  int [][] layout = new int [40][40];
+  noStroke();
+  
+  drawSky(layout, BLOCK_SIZE);
+  drawGround(layout, BLOCK_SIZE);
+  drawTitle();
+  drawMenu();
+}
+
+void drawSky(int [][] layout, int sideLength)
+{
+  fill(0, 0, 255);
+  for(int x = 0; x < layout[0].length; x++)
+  {
+    for(int y = 0; y < 10; y++)
+    {
+      rect(x * sideLength, y * sideLength, sideLength, sideLength);      
+    }
+  }
+}
+
+void drawGround(int[][] layout, int sideLength)
+{
+  for (int x = 0; x < layout[0].length; x++) 
+  {
+    for (int y = 10; y < layout.length; y++) 
+    {
+      if ((int) random(10) == 0)
+        fill(255, 215, 0);
+      if ((int) random(10) == 0)
+        fill(200, 200, 200);
+      else
+        fill(150, 75, 0);
+      rect(x * sideLength, y * sideLength, sideLength, sideLength);
+    }
+  }
+}
+void drawTitle()
+{
+  PFont titleFont;
+  fill(255, 0, 0);
+  titleFont = loadFont("DialogInput.plain-96.vlw");
+  textFont(titleFont);
+  text("SPELOAD", 200, 150);  
+}
+
+void drawMenu()
+{
+  PFont menuFont;
+  fill(255, 0, 0);
+  menuFont = loadFont("KristenITC-Regular-56.vlw");
+  textFont(menuFont);
+  text("START GAME", 200, 350);
+  text("INSTRUCTIONS", 200, 450);
+  text("CREDITS", 200, 550);  
+  text("QUIT", 200, 650);  
+}
+
+void drawInstructionsPage()
+{
+  final int BLOCK_SIZE = 20;
+  int [][] layout = new int [40][40];
+  noStroke();
+  
+  drawSky(layout, BLOCK_SIZE);
+  drawGround(layout, BLOCK_SIZE);
+  drawHeading();
+  //drawInstructions();
+}
+
+void drawHeading()
+{
+  PFont headingFont;
+  fill(0, 255, 0);
+  headingFont = loadFont("DialogInput.plain-96.vlw");
+  textFont(headingFont);
+  text("INSTRUCTIONS", 50, 150);  
+}
+
+boolean checkForInput()
+{
+  boolean keepChecking = true;
+  if(mousePressed)
+  {
+    // drawInstructionsPage();
+    keepChecking = false;
+  }
+  
+  return false;
+}
