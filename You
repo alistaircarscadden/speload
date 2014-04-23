@@ -1,0 +1,42 @@
+/** global var holding his clur*/
+int YouR = (int)random(256);
+int YouG = (int)random(256);
+int YouB = (int)random(256);
+
+
+class You
+{
+  int x, y, fuel, facing;
+  You(int x, int fuel)
+  {
+    this.x = x;
+    this.fuel = fuel;
+    this.y = 0;
+  }
+  
+  int insideOf()
+  {
+    return currentLevel.world[x][y];
+  }
+  
+  boolean insideOfLava()
+  {
+    if(currentLevel.world[x][y] == 9)
+      return true;
+    return false;
+  }
+  
+  drawYou()
+  {
+    noStroke();
+    fill(YouR, YouG, YouB);
+    rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+5, 20, 20);
+    
+    fill(175, 175, 175);
+    if(facing == 0)
+      triangle(x*BLOCK_SIZE+5, y*BLOCK_SIZE+30, x*BLOCK_SIZE+25, y*BLOCK_SIZE+30, x*BLOCK_SIZE+15, y*BLOCK_SIZE+45); //You is facing down, draw the drill downwards
+    if(facing == 1)
+      triangle(x*BLOCK_SIZE, y*BLOCK_SIZE+5, x*BLOCK_SIZE, y*BLOCK_SIZE+25, x*BLOCK_SIZE-15, y*BLOCK_SIZE+15); //You is facing left, draw the drill leftie
+    if(facing == 2)
+      triangle(x*BLOCK_SIZE+30, y*BLOCK_SIZE+5, x*BLOCK_SIZE+30, y*BLOCK_SIZE+25, x*BLOCK_SIZE+45, y*BLOCK_SIZE+15); //You is facing right, draw the drill righty tighty
+  }
