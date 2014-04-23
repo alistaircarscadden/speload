@@ -1,0 +1,19 @@
+class Level
+{
+  final int BLOCK_WIDTH = 30;
+  Block[][] world = new Block[20][20];
+  
+  Level()
+  {
+    this.world = this.generate();
+  }
+  
+  Block[][] generate()
+  {
+    Block[][] temp = new Block[20][20];
+    /** generation code to create
+      * a beautiful landscape
+      */
+    return temp;
+  }
+}
