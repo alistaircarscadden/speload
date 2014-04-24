@@ -14,16 +14,15 @@
 class Level
 {
   final int BLOCK_WIDTH = 30;
-  Block[][] world = new Block[20][20];
+  Block[][] layout = new Block[20][20];
   
   Level()
   {
-    this.world = this.generate();
+    this.layout = this.generate();
   }
   
   Block[][] generate()
   {
-    lvl = level.levelNumber;
     Block[][] temp = new Block[20][20];
     
     for(int i = 0; i < 20; ++i)
