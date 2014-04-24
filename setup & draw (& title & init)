@@ -1,5 +1,4 @@
-/* Note: Half of this shit is unnecessary */
-
+Level level = new Level();
 boolean keepDrawing = true;
 
 void setup()
