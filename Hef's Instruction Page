@@ -1,3 +1,6 @@
+/**
+
+
 int choice;
 boolean start = true;
 boolean instructions = false;
@@ -47,3 +50,5 @@ void mouseReleased()
   }
 
 } 
+
+*/
