@@ -1,0 +1,40 @@
+/**
+  This is a complete program, the entire thing can be run in processing
+  it has NOT been bug tested so ur fuqt if it fails
+  */
+
+void setup()
+{
+  size(600, 600);
+  drawSky(30);
+  drawGround(30);
+}
+
+void drawSky(int sideLength)
+{
+  fill(0, 0, 255);
+  for(int x = 0; x < 20; x++)
+  {
+    for(int y = 0; y < 10; y++)
+    {
+      rect(x * sideLength, y * sideLength, sideLength, sideLength);      
+    }
+  }
+}
+
+void drawGround(int sideLength)
+{
+  for (int x = 0; x < 20; x++) 
+  {
+    for (int y = 10; y < 20; y++) 
+    {
+      if ((int) random(10) == 0)
+        fill(255, 215, 0);
+      if ((int) random(10) == 0)
+        fill(200, 200, 200);
+      else
+        fill(150, 75, 0);
+      rect(x * sideLength, y * sideLength, sideLength, sideLength);
+    }
+  }
+}
