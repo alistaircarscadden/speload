@@ -26,17 +26,34 @@ class You
     return false;
   }
   
-  drawYou()
+  void drawYou(int x, int y, int facing)
   {
-    noStroke();
-    fill(YouR, YouG, YouB);
-    rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+5, 20, 20);
-    
-    fill(175, 175, 175);
-    if(facing == 0)
-      triangle(x*BLOCK_SIZE+5, y*BLOCK_SIZE+30, x*BLOCK_SIZE+25, y*BLOCK_SIZE+30, x*BLOCK_SIZE+15, y*BLOCK_SIZE+45); //You is facing down, draw the drill downwards
-    if(facing == 1)
-      triangle(x*BLOCK_SIZE, y*BLOCK_SIZE+5, x*BLOCK_SIZE, y*BLOCK_SIZE+25, x*BLOCK_SIZE-15, y*BLOCK_SIZE+15); //You is facing left, draw the drill leftie
-    if(facing == 2)
-      triangle(x*BLOCK_SIZE+30, y*BLOCK_SIZE+5, x*BLOCK_SIZE+30, y*BLOCK_SIZE+25, x*BLOCK_SIZE+45, y*BLOCK_SIZE+15); //You is facing right, draw the drill righty tighty
+  final int BLOCK_SIZE = 30;
+  noStroke();
+
+  fill(255, 100, 100);
+  rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+5, 20, 20);
+
+  fill(100);
+  rect(x*BLOCK_SIZE+25, y*BLOCK_SIZE+12, 5, 5);
+
+  fill(0);
+  ellipse(x*BLOCK_SIZE+5, y*BLOCK_SIZE+25, 10, 10);
+  ellipse(x*BLOCK_SIZE+25, y*BLOCK_SIZE+25, 10, 10);
+  rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+20, 20, 10);
+
+  fill(100);
+  ellipse(x*BLOCK_SIZE+5, y*BLOCK_SIZE+25, 8, 8);
+  ellipse(x*BLOCK_SIZE+15, y*BLOCK_SIZE+25, 8, 8);
+  ellipse(x*BLOCK_SIZE+25, y*BLOCK_SIZE+25, 8, 8);
+
+  fill(175, 175, 175);
+  if (facing == 0)
+    triangle(x*BLOCK_SIZE+5, y*BLOCK_SIZE+30, x*BLOCK_SIZE+25, y*BLOCK_SIZE+30, x*BLOCK_SIZE+15, y*BLOCK_SIZE+45); //You is facing down, draw the drill downwards
+  if (facing == 1)
+    triangle(x*BLOCK_SIZE, y*BLOCK_SIZE+5, x*BLOCK_SIZE, y*BLOCK_SIZE+25, x*BLOCK_SIZE-15, y*BLOCK_SIZE+15); //You is facing left, draw the drill leftie
+  if (facing == 2)
+    triangle(x*BLOCK_SIZE+30, y*BLOCK_SIZE+5, x*BLOCK_SIZE+30, y*BLOCK_SIZE+25, x*BLOCK_SIZE+45, y*BLOCK_SIZE+15); //You is facing right, draw the drill righty tighty
   }
+}
+
