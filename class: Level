@@ -9,6 +9,7 @@
  * 7: gem      : 7           :
  * 8: diamond  : 8           :
  * 9: lava     : 9           :
+ *10: fuel     : gives fuel  :
  */
  
 class Level
@@ -18,7 +19,7 @@ class Level
   
   Level()
   {
-    this.layout = this.generate();
+    this.layout = generate();
   }
   
   Block[][] generate()
