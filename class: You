@@ -1,5 +1,4 @@
-/** global var holding his clur*/
-int YouR = (int)random(256);
+int YouR = (int)random(256); //RGB values for You's colour
 int YouG = (int)random(256);
 int YouB = (int)random(256);
 
@@ -33,9 +32,6 @@ class You
 
   fill(255, 100, 100);
   rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+5, 20, 20);
-
-  fill(100);
-  rect(x*BLOCK_SIZE+25, y*BLOCK_SIZE+12, 5, 5);
 
   fill(0);
   ellipse(x*BLOCK_SIZE+5, y*BLOCK_SIZE+25, 10, 10);
