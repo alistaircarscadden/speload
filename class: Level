@@ -38,7 +38,20 @@ class Level
           temp[i][ii] = 2;
         else if((int)random(20-lvl) == 0) // ores of any kind 1/(20-level)
         {
+          int randomRange = 20;
           
+          if((int)random(randomRange) == 0)
+            temp[i][ii] = 3;
+          else if((int)random(randomRange) == 0)
+            temp[i][ii] = 4;
+          else if((int)random(randomRange) == 0 && currentLevel >= 2)
+            temp[i][ii] = 5;
+          else if((int)random(randomRange) == 0 && currentLevel >= )
+            temp[i][ii] = 6;
+          else if((int)random(randomRange) == 0)
+            temp[i][ii] = 7;
+          else if((int)random(randomRange) == 0)
+            temp[i][ii] = 8;
         }
       }
     }
