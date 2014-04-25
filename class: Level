@@ -40,17 +40,23 @@ class Level
         {
           int randomRange = 20;
           
-          if((int)random(randomRange) == 0)
+          /**
+            * Each if statement takes care of whether or not a specific ore will be placed in the spot
+            * They are adjusted relatively with currentLevel to make rare ores more common later on
+            * As well as limited by currentLevel to make sure expensive ores do not appear at all earlier on
+            */
+            
+          if((int)random(randomRange + currentLevel) == 0) // "+ currentLevel" makes copper less common later on
             temp[i][ii] = 3;
-          else if((int)random(randomRange) == 0)
+          else if((int)random(randomRange + currentLevel) == 0)
             temp[i][ii] = 4;
-          else if((int)random(randomRange) == 0 && currentLevel >= 2)
+          else if((int)random(randomRange + (currentLevel/2)) == 0 && currentLevel >= 2)
             temp[i][ii] = 5;
-          else if((int)random(randomRange) == 0 && currentLevel >= )
+          else if((int)random(randomRange) == 0 && currentLevel >= 3)
             temp[i][ii] = 6;
-          else if((int)random(randomRange) == 0)
+          else if((int)random(randomRange - (currentLevel/2)) == 0 && currentLevel >= 5) 
             temp[i][ii] = 7;
-          else if((int)random(randomRange) == 0)
+          else if((int)random(randomRange - currentLevel) == 0 && currentLevel >= 7) // "- currentLevel" makes diamond more common later on
             temp[i][ii] = 8;
         }
       }
