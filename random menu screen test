@@ -1,25 +1,26 @@
-/**
-  This is a complete program, the entire thing can be run in processing
-  it has NOT been bug tested so ur fuqt if it fails
-  */
+/** this is a complete program, it works yo */
 
 void setup()
 {
   size(600, 600);
   drawSky(30);
   drawGround(30);
+  drawYou(10, 9, 2);
 }
 
 void drawSky(int sideLength)
 {
   fill(0, 0, 255);
-  for(int x = 0; x < 20; x++)
+  for (int x = 0; x < 20; x++)
   {
-    for(int y = 0; y < 10; y++)
+    for (int y = 0; y < 10; y++)
     {
-      rect(x * sideLength, y * sideLength, sideLength, sideLength);      
+      fill(y*13+45, y*13+45, 255);
+      rect(x * sideLength, y * sideLength, sideLength, sideLength);
     }
   }
+  fill(255, 200, 0);
+  rect(sideLength, sideLength, sideLength, sideLength);
 }
 
 void drawGround(int sideLength)
@@ -28,13 +29,43 @@ void drawGround(int sideLength)
   {
     for (int y = 10; y < 20; y++) 
     {
-      if ((int) random(10) == 0)
+      if ((int) random(30) == 0)
         fill(255, 215, 0);
-      if ((int) random(10) == 0)
+      else if ((int) random(10) == 0)
         fill(200, 200, 200);
       else
         fill(150, 75, 0);
       rect(x * sideLength, y * sideLength, sideLength, sideLength);
     }
   }
+}
+
+void drawYou(int x, int y, int facing)
+{
+  final int BLOCK_SIZE = 30;
+  noStroke();
+
+  fill(255, 100, 100);
+  rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+5, 20, 20);
+
+  fill(100);
+  rect(x*BLOCK_SIZE+25, y*BLOCK_SIZE+12, 5, 5);
+
+  fill(0);
+  ellipse(x*BLOCK_SIZE+5, y*BLOCK_SIZE+25, 10, 10);
+  ellipse(x*BLOCK_SIZE+25, y*BLOCK_SIZE+25, 10, 10);
+  rect(x*BLOCK_SIZE+5, y*BLOCK_SIZE+20, 20, 10);
+
+  fill(100);
+  ellipse(x*BLOCK_SIZE+5, y*BLOCK_SIZE+25, 8, 8);
+  ellipse(x*BLOCK_SIZE+15, y*BLOCK_SIZE+25, 8, 8);
+  ellipse(x*BLOCK_SIZE+25, y*BLOCK_SIZE+25, 8, 8);
+
+  fill(175, 175, 175);
+  if (facing == 0)
+    triangle(x*BLOCK_SIZE+5, y*BLOCK_SIZE+30, x*BLOCK_SIZE+25, y*BLOCK_SIZE+30, x*BLOCK_SIZE+15, y*BLOCK_SIZE+45); //You is facing down, draw the drill downwards
+  if (facing == 1)
+    triangle(x*BLOCK_SIZE, y*BLOCK_SIZE+5, x*BLOCK_SIZE, y*BLOCK_SIZE+25, x*BLOCK_SIZE-15, y*BLOCK_SIZE+15); //You is facing left, draw the drill leftie
+  if (facing == 2)
+    triangle(x*BLOCK_SIZE+30, y*BLOCK_SIZE+5, x*BLOCK_SIZE+30, y*BLOCK_SIZE+25, x*BLOCK_SIZE+45, y*BLOCK_SIZE+15); //You is facing right, draw the drill righty tighty
 }
