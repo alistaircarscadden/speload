@@ -10,8 +10,9 @@
  * 7: gem      : 7           :
  * 8: diamond  : 8          :
  * 9: lava     : 9      :
+ *10: fuel kehjjhgjehg
  */
-Color[] colours = new Color[10];
+Color[] colours = new Color[11];
 
 // in setup :::::
 /**
@@ -25,6 +26,7 @@ Color[] colours = new Color[10];
  colours[7] = new Color(0, 0, 0);
  colours[8] = new Color(173,216,230);
  colours[9] = new Color(255, 0, 0);
+ colours[10] = new Color(0, 0, 0);
  
  */
 
