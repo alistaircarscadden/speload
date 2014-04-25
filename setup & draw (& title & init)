@@ -1,6 +1,7 @@
 Level level = new Level(); //making "level.layout[x][y]" the identifier for the blocks
 boolean keepDrawing = true;
 final int BLOCK_SIZE = 30;
+int currentLevel = 1;
 
 void setup()
 {
