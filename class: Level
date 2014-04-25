@@ -20,6 +20,8 @@ class Level
   Level()
   {
     this.layout = generate();
+    you = new You(you.x, you.fuel);
+    layout[you.x][you.y] = 0; //This makes You spawn in air, not dirt/anything else
   }
   
   Block[][] generate()
