@@ -40,24 +40,25 @@ void drawTitleScreen ()
 void drawSky(int [][] layout, int sideLength)
 {
   fill(0, 0, 255);
-  for(int x = 0; x < layout[0].length; x++)
+  for (int x = 0; x < 20; x++)
   {
-    for(int y = 0; y < 10; y++)
+    for (int y = 0; y < 10; y++)
     {
-      rect(x * sideLength, y * sideLength, sideLength, sideLength);      
+      fill(y*13+45, y*13+45, 255);
+      rect(x * sideLength, y * sideLength, sideLength, sideLength);
     }
   }
 }
 
 void drawGround(int[][] layout, int sideLength)
 {
-  for (int x = 0; x < layout[0].length; x++) 
+  for (int x = 0; x < 20; x++) 
   {
-    for (int y = 10; y < layout.length; y++) 
+    for (int y = 10; y < 20; y++) 
     {
-      if ((int) random(10) == 0)
+      if ((int) random(30) == 0)
         fill(255, 215, 0);
-      if ((int) random(10) == 0)
+      else if ((int) random(10) == 0)
         fill(200, 200, 200);
       else
         fill(150, 75, 0);
