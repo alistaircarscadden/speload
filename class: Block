@@ -8,9 +8,9 @@
  * 5: silver   : 5           :
  * 6: gold     : 6           :
  * 7: gem      : 7           :
- * 8: diamond  : 8          :
- * 9: lava     : 9      :
- *10: fuel kehjjhgjehg
+ * 8: diamond  : 8           :
+ * 9: lava     : dead        :
+ *10: fuel     : gives fuel  :
  */
 Color[] colours = new Color[11];
 
