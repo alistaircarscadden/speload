@@ -59,6 +59,10 @@ class Level
           else if((int)random(randomRange - currentLevel) == 0 && currentLevel >= 7) // "- currentLevel" makes diamond more common later on
             temp[i][ii] = 8;
         }
+        else if((int)random(10) == 0) // 1/10 we add fuel if nothing else passes
+          temp[i][ii] = 10;
+        else if((int)random(80 - currentLevel*4) == 0) // appx~ 3 lavas per map, more common later on
+          temp[i][ii] = 9;
       }
     }
     return temp;
