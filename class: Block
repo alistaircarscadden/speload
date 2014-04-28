@@ -1,61 +1,139 @@
 /**
- * Block types:
- * 0: air      : unmineable  :
- * 1: dirt     : 0           :
- * 2: stone    : unmineable  :
- * 3: copper   : 3           :
- * 4: iron     : 4           :
- * 5: silver   : 5           :
- * 6: gold     : 6           :
- * 7: gem      : 7           :
- * 8: diamond  : 8           :
- * 9: lava     : dead        :
- *10: fuel     : gives fuel  :
- */
-Color[] colours = new Color[11];
-
-// in setup :::::
-/**
- colours[0] = new Color(0, 0, 0);
- colours[1] = new Color(165,42,42);
- colours[2] = new Color(169,169,169);
- colours[3] = new Color(107,142,35);
- colours[4] = new Color(128,128,128);
- colours[5] = new Color(211,211,211);
- colours[6] = new Color(255,215,0);
- colours[7] = new Color(0, 0, 0);
- colours[8] = new Color(173,216,230);
- colours[9] = new Color(255, 0, 0);
- colours[10] = new Color(0, 0, 0);
- 
- */
-
-/**
  The Block Class
  deals with each individual block stored in the Level class (the world)
  parameters: type (what it looks like), value (what its actually worth)
  */
-class Block
-{
-  int type, value;
-  Color colour;
-  Block(int type, int value)
-  {
-    this.type = type;
-    this.value = value;
-    if (random(0, 5) > 1.5) // This will create 30% hidden minerals
-      colour = colours[type];
-    else
-      colour = colours[1];
-  }
-  Block()
-  {
-    this.type = 0;
-    this.value = 0;
-  }
+class Block {
+    int type;
+    boolean hidden; // It is still it's "type" but it will be drawn as dirt
 
-  boolean hadHiddenValue()
-  {
-    return (this.type == this.value);
-  }
+    Block(int type) {
+        this.type = type;
+        if ((int) random(10) > 7)
+            this.hidden = true;
+        else
+            this.hidden = false;
+    }
+    Block() {
+        this.type = 1;
+        this.hidden = false;
+
+        boolean hadHiddenValue() {
+            return (this.type == this.value);
+        }
+    }
+
+    int r() {
+        switch (this.type) {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            return 165;
+            break;
+        case 2:
+            return 169;
+            break;
+        case 3:
+            return 107;
+            break;
+        case 4:
+            return 128;
+            break;
+        case 5:
+            return 211;
+            break;
+        case 6:
+            return 255;
+            break;
+        case 7:
+            return 0;
+            break;
+        case 8:
+            return 173;
+            break;
+        case 9:
+            return 255;
+            break;
+        case 10:
+            return 0;
+            break;
+        }
+    }
+
+    int g() {
+        switch (this.type) {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            return 42;
+            break;
+        case 2:
+            return 169;
+            break;
+        case 3:
+            return 142;
+            break;
+        case 4:
+            return 128;
+            break;
+        case 5:
+            return 211;
+            break;
+        case 6:
+            return 215;
+            break;
+        case 7:
+            return 0;
+            break;
+        case 8:
+            return 216;
+            break;
+        case 9:
+            return 0;
+            break;
+        case 10:
+            return 0;
+            break;
+        }
+    }
+
+    int b() {
+        switch (this.type) {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            return 42;
+            break;
+        case 2:
+            return 169;
+            break;
+        case 3:
+            return 35;
+            break;
+        case 4:
+            return 128;
+            break;
+        case 5:
+            return 211;
+            break;
+        case 6:
+            return 0;
+            break;
+        case 7:
+            return 0;
+            break;
+        case 8:
+            return 230;
+            break;
+        case 9:
+            return 0;
+            break;
+        case 10:
+            return 0;
+            break;
+        }
+    }
 }
