@@ -136,4 +136,12 @@ class Block {
             break;
         }
     }
+
+    void drawBlock(int x_posInLayout, int y_posInLayout) {
+        int x = x_posInLayout * BLOCK_SIZE;
+        int y = y_posInLayout * BLOCK_SIZE;
+
+        fill(r(), g(), b()); // all of that work for this :(
+        rect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+    }
 }
