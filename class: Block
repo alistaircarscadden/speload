@@ -17,10 +17,10 @@ class Block {
     Block() {
         this.type = 1;
         this.hidden = false;
+    }
 
-        boolean hadHiddenValue() {
-            return (this.type == this.value);
-        }
+    boolean hadHiddenValue() {
+        return (this.type == this.value);
     }
 
     int r() {
