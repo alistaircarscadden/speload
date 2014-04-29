@@ -1,16 +1,3 @@
-/**
- * 0: air      : unmineable  :
- * 1: dirt     : 0           :
- * 2: stone    : unmineable  :
- * 3: copper   : 3           :
- * 4: iron     : 4           :
- * 5: silver   : 5           :
- * 6: gold     : 6           :
- * 7: gem      : 7           :
- * 8: diamond  : 8           :
- * 9: lava     : dead        :
- *10: fuel     : gives fuel  :
- */
 class Level {
     final int BLOCK_WIDTH = 30;
     Block[][] layout = new Block[20][20];
@@ -61,5 +48,16 @@ class Level {
             }
         }
         return temp;
+    }
+    
+    void drawLayout()
+    {
+        for(int i = 0; i < 20; ++i)
+        {
+            for(int ii = 0; ii < 20; ++ii)
+            {
+                this.layout[i][ii].drawBlock(i, ii);
+            }
+        }
     }
 }
