@@ -5,6 +5,7 @@
  */
 class Block {
     int type;
+    int value;
     boolean hidden; // It is still it's "type" but it will be drawn as dirt
 
     Block(int type) {
@@ -13,9 +14,11 @@ class Block {
             this.hidden = true;
         else
             this.hidden = false;
+        this.value = max(this.type - 2, 0);
     }
     Block() {
         this.type = 1;
+        this.value = 0;
         this.hidden = false;
     }
 
