@@ -23,6 +23,22 @@ void draw() {
         drawInstructionsPage();
         keepDrawing = false;
     }
+
+    if (keyPressed)
+        if (key == CODED) {
+            // Movement: Down
+            if (keyCode == DOWN) {
+                you.move(0);
+            }
+            // Movement: Left
+            else if (keyCode == LEFT) {
+                you.move(1);
+            }
+            // Movement: Right
+            else if (keyCode == RIGHT) {
+                you.move(2);
+            }
+        }
 }
 
 void drawTitleScreen() {
