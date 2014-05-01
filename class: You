@@ -47,19 +47,7 @@ class You {
             triangle(x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 5, x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 25, x * BLOCK_SIZE + 45, y * BLOCK_SIZE + 15); //You is facing right, draw the drill righty tighty
     }
     
-    void keyPressed()
+    void move(int direction)
     {
-        if(key = down)
-        {
-            //drill down
-        }
-        if(key = right)
-        {
-            //move or drill right
-        }
-        if(key = left)
-        {
-            //move or drill left
-        }
+    
     }
-}
