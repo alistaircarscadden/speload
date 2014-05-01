@@ -147,4 +147,11 @@ class Block {
         fill(r(), g(), b()); // all of that work for this :(
         rect(x, y, BLOCK_SIZE, BLOCK_SIZE);
     }
+    
+    void setAsAir()
+    {
+        this.type = 0;
+        this.value = 0;
+        this.hidden = false;
+    }
 }
