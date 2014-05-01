@@ -41,6 +41,11 @@ void draw() {
         }
 }
 
+void startGame()
+{
+    level = new Level();
+}
+
 void drawTitleScreen() {
     int[][] layout = new int[40][40];
     noStroke();
