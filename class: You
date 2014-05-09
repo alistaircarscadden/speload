@@ -1,79 +1,80 @@
-int YouR = (int) random(256); //RGB values for You's colour
-int YouG = (int) random(256);
-int YouB = (int) random(256);
-
-
 class You {
-    int x, y, fuel, facing;
-    You(int x, int fuel) {
-        this.x = x;
-        this.fuel = fuel;
-        this.y = 0;
-    }
+  int x, y, fuel, facing;
+  You(int x, int fuel) {
+    this.x = x;
+    this.fuel = fuel;
+    this.y = 0;
+  }
+  
+  You(int x) {
+    this.x = x;
+    this.fuel = 20;
+    this.y = 0;
+  }
 
-    int insideOf() {
-        return currentLevel.world[x][y];
-    }
+  int insideOf() {
+    return level.layout[this.x][this.y].type;
+  }
 
-    boolean insideOfLava() {
-        if (currentLevel.world[x][y] == 9)
-            return true;
-        return false;
-    }
+  boolean insideOfLava() {
+    if (level.layout[this.x][this.y].type == 9)
+      return true;
+    return false;
+  }
 
-    void drawYou(int x, int y, int facing) {
-        final int BLOCK_SIZE = 30;
-        noStroke();
+  void drawYou(int x, int y, int facing) {
+    noStroke();
 
-        fill(255, 100, 100);
-        rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5, 20, 20);
+    fill(255, 100, 100);
+    rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5, 20, 20);
 
-        fill(0);
-        ellipse(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 25, 10, 10);
-        ellipse(x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 25, 10, 10);
-        rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 20, 20, 10);
+    fill(0);
+    ellipse(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 25, 10, 10);
+    ellipse(x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 25, 10, 10);
+    rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 20, 20, 10);
 
-        fill(100);
-        ellipse(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 25, 8, 8);
-        ellipse(x * BLOCK_SIZE + 15, y * BLOCK_SIZE + 25, 8, 8);
-        ellipse(x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 25, 8, 8);
+    fill(100);
+    ellipse(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 25, 8, 8);
+    ellipse(x * BLOCK_SIZE + 15, y * BLOCK_SIZE + 25, 8, 8);
+    ellipse(x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 25, 8, 8);
 
-        fill(175, 175, 175);
-        if (facing == 0)
-            triangle(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 30, x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 30, x * BLOCK_SIZE + 15, y * BLOCK_SIZE + 45); //You is facing down, draw the drill downwards
-        if (facing == 1)
-            triangle(x * BLOCK_SIZE, y * BLOCK_SIZE + 5, x * BLOCK_SIZE, y * BLOCK_SIZE + 25, x * BLOCK_SIZE - 15, y * BLOCK_SIZE + 15); //You is facing left, draw the drill leftie
-        if (facing == 2)
-            triangle(x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 5, x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 25, x * BLOCK_SIZE + 45, y * BLOCK_SIZE + 15); //You is facing right, draw the drill righty tighty
-    }
-    
-    void move(int direction)
+    fill(175, 175, 175);
+    if (facing == 0)
+      triangle(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 30, x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 30, x * BLOCK_SIZE + 15, y * BLOCK_SIZE + 45); //You is facing down, draw the drill downwards
+    if (facing == 1)
+      triangle(x * BLOCK_SIZE, y * BLOCK_SIZE + 5, x * BLOCK_SIZE, y * BLOCK_SIZE + 25, x * BLOCK_SIZE - 15, y * BLOCK_SIZE + 15); //You is facing left, draw the drill leftie
+    if (facing == 2)
+      triangle(x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 5, x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 25, x * BLOCK_SIZE + 45, y * BLOCK_SIZE + 15); //You is facing right, draw the drill righty tighty
+  }
+
+  void moveYou(int direction)
+  {
+    if (direction == 0) // You's direction: DOWN
     {
-        if(direction == 0) // You's direction: DOWN
-        {
-            if(level.layout[x][y + 1].type != 2)
-            {
-                score += level.layout[x][y + 1].value;
-                this.y += 1;
-                level.layout[x][y + 1].setAsAir();
-            }
-        }
-        else if(direction == 1) // You's direction: LEFT
-        {
-            if(level.layout[x - 1][y].type != 2)
-            {
-                score += level.layout[x - 1][y].value;
-                this.x -= 1;
-                level.layout[x - 1][y].setAsAir();
-            }
-        }
-        else if(direction == 2) // You's direction: RIGHT
-        {
-            if(level.layout[x + 1][y].type != 2)
-            {
-                score += level.layout[x + 1][y].value;
-                this.x += 1;
-                level.layout[x + 1][y].setAsAir();
-            }
-        }
-    }   
+      if (level.layout[x][y + 1].type != 2)
+      {
+        score += level.layout[x][y + 1].value;
+        this.y += 1;
+        level.layout[x][y + 1].setAsAir();
+      }
+    }
+    else if (direction == 1) // You's direction: LEFT
+    {
+      if (level.layout[x - 1][y].type != 2)
+      {
+        score += level.layout[x - 1][y].value;
+        this.x -= 1;
+        level.layout[x - 1][y].setAsAir();
+      }
+    }
+    else if (direction == 2) // You's direction: RIGHT
+    {
+      if (level.layout[x + 1][y].type != 2)
+      {
+        score += level.layout[x + 1][y].value;
+        this.x += 1;
+        level.layout[x + 1][y].setAsAir();
+      }
+    }
+  }   
+}
