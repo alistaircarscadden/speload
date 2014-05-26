@@ -1,20 +1,24 @@
-Level level = new Level(); //making "level.layout[x][y].type" the identifier for the blocks
+Level level; //making "level.layout[x][y].type" the identifier for the blocks
 You you = new You(10);
 
-int YouR = (int) random(256);
-int YouG = (int) random(256);
-int YouB = (int) random(256);
+int youR = (int) random(256);
+int youG = (int) random(256);
+int youB = (int) random(256);
 
 final int BLOCK_SIZE = 30;
-int currentLevel = 1, score = 0;
+int currentLevel = 1;
+int score = 0;
 
 void setup() {
-  boolean menuInput = true;
-  size(800, 800);
+  //boolean menuInput = true;
+  size(600, 600);
+  frameRate(30);
   startGame();
+  //you.drawYou(50, 0, 1);
 }
 
 void draw() {
+  you.updateYou();
   if (keyPressed)
     if (key == CODED) {
       // Movement: Down
@@ -30,9 +34,14 @@ void draw() {
         you.moveYou(2);
       }
     }
+    level.drawLayout();
+    you.drawYou(you.x, you.y, you.facing);
+    you.drawFuelMeter(you.fuel);
+    you.drawScore(score);
 }
 
 void startGame()
 {
   level = new Level();
+  //level.drawLayout();
 }
