@@ -1,31 +1,57 @@
 class You {
-  int x, y, fuel, facing;
+  int x, y, fuel, facing, movementCooldown;
+  final int movementLimiter = 7;
   You(int x, int fuel) {
     this.x = x;
     this.fuel = fuel;
     this.y = 0;
   }
-  
+
   You(int x) {
     this.x = x;
     this.fuel = 20;
     this.y = 0;
   }
-
-  int insideOf() {
-    return level.layout[this.x][this.y].type;
+  
+  boolean insideOf(int what) {
+    return (level.layout[this.x][this.y].type == what);
+  }
+  
+  boolean hasBelow(int what) {
+    return (you.y != 19 && level.layout[this.x][this.y + 1].type == what);
+  }
+  
+  void updateYou()
+  {
+    if (movementCooldown > 0)
+    {
+      --movementCooldown;
+    }
+    if (you.hasBelow(0))
+      you.y += 1;
+    if (you.insideOf(9))
+      you.die();
   }
 
-  boolean insideOfLava() {
-    if (level.layout[this.x][this.y].type == 9)
-      return true;
-    return false;
-  }
 
+  void drawScore(int score)
+  {
+    fill(youR + 50, youG + 50, youB + 50);
+    text(score, 10, 35);
+  }
+  void drawFuelMeter(int fuel)
+  {
+    fill(100, 100, 255);
+    for(int i = 0; i < you.fuel; ++i)
+    {
+      rect(i * 10 + 10 + i, 10, 10, 10);
+    }
+  }
+  
   void drawYou(int x, int y, int facing) {
     noStroke();
 
-    fill(255, 100, 100);
+    fill(youR, youG, youB);
     rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5, 20, 20);
 
     fill(0);
@@ -49,32 +75,70 @@ class You {
 
   void moveYou(int direction)
   {
-    if (direction == 0) // You's direction: DOWN
+    if (movementCooldown == 0)
     {
-      if (level.layout[x][y + 1].type != 2)
+      if (direction == 0) // You's direction: DOWN
       {
-        score += level.layout[x][y + 1].value;
-        this.y += 1;
-        level.layout[x][y + 1].setAsAir();
+        if (you.y != 19 && level.layout[x][y + 1].type != 2)
+        {
+          if (level.layout[x][y + 1].type != 0 && level.layout[x][y + 1].type != 1 && level.layout[x][y + 1].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+            --fuel;
+          if (level.layout[x][y + 1].type == 10)
+          {
+            fuel += 4;
+            if (fuel > 30)
+              fuel = 30;
+          }
+          score += level.layout[x][y + 1].value;
+          this.y += 1;
+          level.layout[x][y].setAs(0);
+          movementCooldown = movementLimiter;
+          you.facing = 0;
+        }
+      }
+      else if (direction == 1) // You's direction: LEFT
+      {
+        if (you.x != 0 && level.layout[x - 1][y].type != 2)
+        {
+          if (level.layout[x - 1][y].type != 0 && level.layout[x - 1][y].type != 1 && level.layout[x - 1][y].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+            --fuel;
+          if (level.layout[x - 1][y].type == 10)
+          {
+            fuel += 4;
+            if (fuel > 30)
+              fuel = 30;
+          }
+          score += level.layout[x - 1][y].value;
+          this.x -= 1;
+          level.layout[x][y].setAs(0);
+          movementCooldown = movementLimiter;
+          you.facing = 1;
+        }
+      }
+      else if (direction == 2) // You's direction: RIGHT
+      {
+        if (you.x != 19 && level.layout[x + 1][y].type != 2)
+        {
+          if (level.layout[x + 1][y].type != 0 && level.layout[x + 1][y].type != 1 && level.layout[x + 1][y].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+            --fuel;
+          if (level.layout[x + 1][y].type == 10)
+          {
+            fuel += 4;
+            if (fuel > 30)
+              fuel = 30;
+          }
+          score += level.layout[x + 1][y].value;
+          this.x += 1;
+          level.layout[x][y].setAs(0);
+          movementCooldown = movementLimiter;
+          you.facing = 2;
+        }
       }
     }
-    else if (direction == 1) // You's direction: LEFT
-    {
-      if (level.layout[x - 1][y].type != 2)
-      {
-        score += level.layout[x - 1][y].value;
-        this.x -= 1;
-        level.layout[x - 1][y].setAsAir();
-      }
-    }
-    else if (direction == 2) // You's direction: RIGHT
-    {
-      if (level.layout[x + 1][y].type != 2)
-      {
-        score += level.layout[x + 1][y].value;
-        this.x += 1;
-        level.layout[x + 1][y].setAsAir();
-      }
-    }
-  }   
+  }
+  
+  void die() //lusr
+  {
+    println("you died dumdum"); 
+  }
 }
