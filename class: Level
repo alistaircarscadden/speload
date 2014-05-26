@@ -5,7 +5,7 @@ class Level {
     Level() {
         this.layout = generate();
         you = new You(you.x, you.fuel);
-        layout[you.x][you.y] = 0; //This makes You spawn in air, not dirt/anything else
+        layout[you.x][you.y] = new Block(0); //This makes You spawn in air, not dirt/anything else
     }
 
     Block[][] generate() {
@@ -13,13 +13,13 @@ class Level {
 
         for (int i = 0; i < 20; ++i) {
             for (int ii = 0; ii < 20; ++ii) {
-                temp[i][ii] = 1;
+                temp[i][ii] = new Block(1);
 
                 if ((int) random(30) == 0) // first gen tries making the block into air, 1/30
-                    temp[i][ii] = 0;
-                else if ((int) random(30 - lvl) == 0) // stones: 1/29 in 400 tile grid is ~13/map, as lvl increases so do stones
-                    temp[i][ii] = 2;
-                else if ((int) random(20 - lvl) == 0) // ores of any kind 1/(20-level)
+                    temp[i][ii] = new Block(0);
+                else if ((int) random(30 - currentLevel) == 0) // stones: 1/29 in 400 tile grid is ~13/map, as lvl increases so do stones
+                    temp[i][ii] = new Block(2);
+                else if ((int) random(20 - currentLevel) == 0) // ores of any kind 1/(20-level)
                 {
                     int randomRange = 20;
 
@@ -30,21 +30,21 @@ class Level {
                      */
 
                     if ((int) random(randomRange + currentLevel) == 0) // "+ currentLevel" makes copper less common later on
-                        temp[i][ii] = 3;
+                        temp[i][ii] = new Block(3);
                     else if ((int) random(randomRange + currentLevel) == 0)
-                        temp[i][ii] = 4;
+                        temp[i][ii] = new Block(4);
                     else if ((int) random(randomRange + (currentLevel / 2)) == 0 && currentLevel >= 2)
-                        temp[i][ii] = 5;
+                        temp[i][ii] = new Block(5);
                     else if ((int) random(randomRange) == 0 && currentLevel >= 3)
-                        temp[i][ii] = 6;
+                        temp[i][ii] = new Block(6);
                     else if ((int) random(randomRange - (currentLevel / 2)) == 0 && currentLevel >= 5)
-                        temp[i][ii] = 7;
+                        temp[i][ii] = new Block(7);
                     else if ((int) random(randomRange - currentLevel) == 0 && currentLevel >= 7) // "- currentLevel" makes diamond more common later on
-                        temp[i][ii] = 8;
-                } else if ((int) random(10) == 0) // 1/10 we add fuel if nothing else passes
-                    temp[i][ii] = 10;
+                        temp[i][ii] = new Block(8);
+                } else if ((int) random(50) == 0) // 1/10 we add fuel if nothing else passes
+                    temp[i][ii] = new Block(10);
                 else if ((int) random(80 - currentLevel * 4) == 0) // appx~ 3 lavas per map, more common later on
-                    temp[i][ii] = 9;
+                    temp[i][ii] = new Block(9);
             }
         }
         return temp;
