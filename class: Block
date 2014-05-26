@@ -1,8 +1,3 @@
-/**
- The Block Class
- deals with each individual block stored in the Level class (the world)
- parameters: type (what it looks like), value (what its actually worth)
- */
 class Block {
     int type;
     int value;
@@ -29,114 +24,87 @@ class Block {
     int r() {
         switch (this.type) {
         case 0:
-            return 0;
-            break;
+            return 65;
         case 1:
-            return 165;
-            break;
+            return 105;
         case 2:
             return 169;
-            break;
         case 3:
-            return 107;
-            break;
+            return 184;
         case 4:
             return 128;
-            break;
         case 5:
             return 211;
-            break;
         case 6:
             return 255;
-            break;
         case 7:
             return 0;
-            break;
         case 8:
             return 173;
-            break;
         case 9:
             return 255;
-            break;
         case 10:
+            return 50;
+        default: 
             return 0;
-            break;
         }
     }
 
     int g() {
         switch (this.type) {
         case 0:
-            return 0;
-            break;
+            return 40;
         case 1:
-            return 42;
-            break;
+            return 65;
         case 2:
             return 169;
-            break;
         case 3:
-            return 142;
-            break;
+            return 115;
         case 4:
             return 128;
-            break;
         case 5:
             return 211;
-            break;
         case 6:
             return 215;
-            break;
         case 7:
             return 0;
-            break;
         case 8:
             return 216;
-            break;
         case 9:
             return 0;
-            break;
         case 10:
+            return 50;
+        default:
             return 0;
-            break;
         }
     }
 
     int b() {
         switch (this.type) {
         case 0:
-            return 0;
-            break;
+            return 5;
         case 1:
-            return 42;
-            break;
+            return 10;
         case 2:
             return 169;
-            break;
         case 3:
-            return 35;
-            break;
+            return 51;
         case 4:
             return 128;
-            break;
         case 5:
             return 211;
-            break;
         case 6:
             return 0;
-            break;
         case 7:
-            return 0;
-            break;
+            return 255;
         case 8:
             return 230;
-            break;
         case 9:
             return 0;
-            break;
         case 10:
+            return 50;
+        default:
             return 0;
-            break;
         }
     }
 
@@ -148,10 +116,10 @@ class Block {
         rect(x, y, BLOCK_SIZE, BLOCK_SIZE);
     }
     
-    void setAsAir()
+    void setAs(int what)
     {
-        this.type = 0;
-        this.value = 0;
+        this.type = what;
+        this.value = what;
         this.hidden = false;
     }
 }
