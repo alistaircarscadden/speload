@@ -1,0 +1,161 @@
+class Block {
+  int type;
+  int value;
+  boolean hidden; // It is still it's "type" but it will be drawn as dirt
+
+  Block(int type) {
+    this.type = type;
+    if ((int) random(10) > 7)
+      this.hidden = true;
+    else
+      this.hidden = false;
+    this.value = max(this.type - 2, 0);
+  }
+  Block() {
+    this.type = 1;
+    this.value = 0;
+    this.hidden = false;
+  }
+
+  boolean hadHiddenValue() {
+    return (this.type == this.value);
+  }
+  /*
+ * 0: air      : unmineable  :
+   * 1: dirt     : 0           :
+   * 2: stone    : unmineable  :
+   * 3: copper   : 3           :
+   * 4: iron     : 4           :
+   * 5: silver   : 5           :
+   * 6: gold     : 6           :
+   * 7: gem      : 7           :
+   * 8: diamond  : 8           :
+   * 9: lava     : dead        :
+   *10: fuel     : gives fuel  :*/
+  int r() {
+    switch (this.type) {
+    case 0:
+      return 65;
+    case 1:
+      return 105;
+    case 2:
+      return 169;
+    case 3:
+      return 184;
+    case 4:
+      return 128;
+    case 5:
+      return 211;
+    case 6:
+      return 255;
+    case 7:
+      return 0;
+    case 8:
+      return 100;
+    case 9:
+      return 255;
+    case 10:
+      return 65;
+    default:
+      return 0;
+    }
+  }
+
+  int g() {
+    switch (this.type) {
+    case 0:
+      return 40;
+    case 1:
+      return 65;
+    case 2:
+      return 169;
+    case 3:
+      return 115;
+    case 4:
+      return 128;
+    case 5:
+      return 211;
+    case 6:
+      return 215;
+    case 7:
+      return 255;
+    case 8:
+      return 200;
+    case 9:
+      return 0;
+    case 10:
+      return 40;
+    default:
+      return 0;
+    }
+  }
+
+  int b() {
+    switch (this.type) {
+    case 0:
+      return 5;
+    case 1:
+      return 10;
+    case 2:
+      return 169;
+    case 3:
+      return 51;
+    case 4:
+      return 128;
+    case 5:
+      return 211;
+    case 6:
+      return 0;
+    case 7:
+      return 0;
+    case 8:
+      return 255;
+    case 9:
+      return 0;
+    case 10:
+      return 5;
+    default:
+      return 0;
+    }
+  }
+
+  void drawBlock(int x_posInLayout, int y_posInLayout) {
+    int x = x_posInLayout * BLOCK_SIZE;
+    int y = y_posInLayout * BLOCK_SIZE;
+    if (this.type != 10 && type != 2)
+    {
+      fill(r(), g(), b()); // all of that work for this :(
+      rect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+    }
+    else if (this.type == 10) // This will handle drawing a jerry can in the fuel block
+    {
+      fill(r(), g(), b());
+      rect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+      fill(255, 0, 0);
+      rect(x+5, y+10, 20, 15);
+      rect(x+14, y+4, 8, 2);
+      rect(x+14, y+6, 2, 4);
+      rect(x+22, y+6, 2, 4);
+      fill(255, 255, 0);
+      rect(x+6, y+6, 6, 4);
+    }
+    else
+    {
+      fill(r(), g(), b());
+      rect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+      fill(r() - 50, g() - 50, b() - 50);
+      rect(x, y, 2, BLOCK_SIZE);
+      rect(x, y, BLOCK_SIZE, 2);
+      rect(x + BLOCK_SIZE - 2, y, 2, BLOCK_SIZE);
+      rect(x, y + BLOCK_SIZE - 2, BLOCK_SIZE, 2);
+      quad(x+2, y, x, y+2, x+BLOCK_SIZE, y + BLOCK_SIZE -2, x+BLOCK_SIZE-2, y+BLOCK_SIZE);
+    }
+  }
+
+  void setAs(int what)
+  {
+    this.type = what;
+    this.value = what;
+    this.hidden = false;
+  }
+}
