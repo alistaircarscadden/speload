@@ -1,0 +1,96 @@
+class Level {
+  final int BLOCK_WIDTH = 30;
+  Block[][] layout = new Block[20][20];
+
+  Level() {
+    this.layout = generate();
+    you = new You(you.x, you.fuel);
+    layout[you.x][you.y] = new Block(0); //This makes You spawn in air, not dirt/anything else
+  }
+
+  Block[][] generate() {
+    Block[][] temp = new Block[20][20];
+
+    for (int i = 0; i < 20; ++i) {
+      for (int ii = 0; ii < 20; ++ii) {
+        temp[i][ii] = new Block(1);
+
+        if ((int) random(15) == 0) // first gen tries making the block into air, 1/30
+            temp[i][ii] = new Block(0);
+        else if ((int) random(max(19 - currentLevel, 4)) == 0) // stones: 1/29 in 400 tile grid is ~13/map, as lvl increases so do stones
+          temp[i][ii] = new Block(2);
+        else if ((int) random(20 - currentLevel) == 0) // ores of any kind 1/(20-level)
+        {
+          int randomRange = 20;
+
+          /**
+           * Each if statement takes care of whether or not a specific ore will be placed in the spot
+           * They are adjusted relatively with currentLevel to make rare ores more common later on
+           * As well as limited by currentLevel to make sure expensive ores do not appear at all earlier on
+           */
+
+          if ((int) random(randomRange + currentLevel) == 0) // "+ currentLevel" makes copper less common later on
+            temp[i][ii] = new Block(3);
+          else if ((int) random(randomRange + currentLevel) == 0)
+            temp[i][ii] = new Block(4);
+          else if ((int) random(randomRange + (currentLevel / 2)) == 0 && currentLevel >= 2)
+            temp[i][ii] = new Block(5);
+          else if ((int) random(randomRange) == 0 && currentLevel >= 3 && currentLevel <= 8)
+            temp[i][ii] = new Block(6);
+          else if ((int) random(randomRange - (currentLevel / 2)) == 0 && currentLevel >= 5 && currentLevel <= 7)
+            temp[i][ii] = new Block(7);
+          else if ((int) random(max(randomRange - currentLevel, 4)) == 0 && currentLevel >= 7) // "- currentLevel" makes diamond more common later on
+            temp[i][ii] = new Block(8);
+        } 
+        else if ((int) random(80 - currentLevel * 4) == 0) // appx~ 3 lavas per map, more common later on
+          temp[i][ii] = new Block(9);
+
+        if ((int) random(100) == 0) // There are ~4 fuels per level NO MATTER WHAT, this is not affected by other blocks or the currentLevel
+          temp[i][ii] = new Block(10);
+      }
+    }
+    return temp;
+  }
+
+  void drawLayout()
+  {
+    for (int i = 0; i < 20; ++i)
+    {
+      for (int ii = 0; ii < 20; ++ii)
+      {
+        this.layout[i][ii].drawBlock(i, ii);
+      }
+    }
+  }
+
+  void update()
+  {
+    // lava spread incoming
+    if (frameCount % 15 == 0) //we want lava to move slow and gooey so we do this yo
+    {
+      Block[][] tempLayout = new Block[20][20]; //first we do this crazy thing
+      for (int i = 0; i < 20; ++i)
+        for (int ii = 0; ii < 20; ++ii) 
+          tempLayout[i][ii] = new Block(layout[i][ii].type); //we make it the same as the real layout
+
+      //first we have to find a lava
+      for (int i = 0; i < 20; ++i)
+        for (int ii = 0; ii < 20; ++ii) //we do this by searching every block and determining if...
+          if (level.layout[i][ii].type == 9) //... it is a lava (and we disregard everything else
+          {
+            // we will look down 1st, but making sure not to look outside of the array
+            if (ii != 19 && tempLayout[i][ii + 1].type == 0)
+              tempLayout[i][ii + 1] = new Block(9); // we apply lava to the block in the TEMP (we are still scanning the real one though)
+            if (i != 0 && tempLayout[i - 1][ii].type == 0)
+              tempLayout[i -1 ][ii] = new Block(9); //left
+            if (i != 19 && tempLayout[i + 1][ii].type == 0)
+              tempLayout[i + 1][ii] = new Block(9); //right
+          }
+
+      //finally we make the real layout equal to our temp layout (this is when the lava "moves"
+      for (int i = 0; i < 20; ++i)
+        for (int ii = 0; ii < 20; ++ii) 
+          layout[i][ii] = new Block(tempLayout[i][ii].type);
+    }
+  }
+}
