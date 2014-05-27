@@ -1,0 +1,63 @@
+Level level; //making "level.layout[x][y].type" the identifier for the blocks
+You you = new You(10);
+
+int youR = (int) random(256);
+int youG = (int) random(256);
+int youB = (int) random(256);
+
+final int BLOCK_SIZE = 30;
+int currentLevel = 1;
+int points = 0;
+int score = 0;
+
+void setup() {
+  //boolean menuInput = true;
+  size(600, 600);
+  frameRate(30);
+  startGame();
+}
+
+void draw() {
+  println(score + " " + points);
+  you.updateYou();
+  if (keyPressed)
+    if (key == CODED) {
+      // Movement: Down
+      if (keyCode == DOWN) {
+        you.moveYou(0);
+      }
+      // Movement: Left
+      else if (keyCode == LEFT) {
+        you.moveYou(1);
+      }
+      // Movement: Right
+      else if (keyCode == RIGHT) {
+        you.moveYou(2);
+      }
+      // Movement : New Level Yo (UP)
+      else if (keyCode == UP)
+      {
+        you.moveYou(3);
+      }
+    }
+  level.drawLayout();
+  if (you.alive)
+  {
+    you.drawYou(you.x, you.y, you.facing);
+    you.drawHUD(score);
+    level.update(); //Lava spread mainly
+  }
+}
+
+void startGame()
+{
+  level = new Level();
+}
+
+void newLevel()
+{
+  currentLevel++;
+  level = new Level();
+  you.y = 0;
+  score = points * currentLevel;
+}
