@@ -1,0 +1,171 @@
+class You {
+  int x, y, fuel, facing, movementCooldown;
+  final int movementLimiter = 6;
+  final int maxFuel = 15;
+  boolean alive = true;
+  You(int x, int fuel) {
+    this.x = x;
+    this.fuel = fuel;
+    this.y = 0;
+  }
+
+  You(int x) {
+    this.x = x;
+    this.fuel = 10;
+    this.y = 0;
+  }
+
+  boolean insideOf(int what) {
+    return (level.layout[this.x][this.y].type == what);
+  }
+
+  boolean hasBelow(int what) {
+    return (you.y != 19 && level.layout[this.x][this.y + 1].type == what);
+  }
+
+  void updateYou()
+  {
+    checkAlive();
+    if (movementCooldown > 0)
+    {
+      --movementCooldown;
+    }
+    if (you.hasBelow(0))
+      you.y += 1;
+    limitFuel();
+  }
+
+
+  void drawHUD(int points)
+  {
+    fill(youR + 50, youG + 50, youB + 50);
+    text(score, 10, 35);
+    text("Level: " + currentLevel, 10, 45);
+    drawFuelMeter(you.fuel);
+    if (fuel >= maxFuel)
+      text("FUEL TANK FULL", 5, 100);
+  }
+  void drawFuelMeter(int fuel)
+  {
+    fill(255);
+    for (int i = 0; i < you.fuel; ++i)
+    {
+      rect(i * 10 + 10 + i, 10, 10, 10);
+    }
+  }
+
+  void drawYou(int x, int y, int facing) {
+    noStroke();
+
+    fill(youR, youG, youB);
+    rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 5, 20, 20);
+
+    fill(0);
+    ellipse(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 25, 10, 10);
+    ellipse(x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 25, 10, 10);
+    rect(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 20, 20, 10);
+
+    fill(100);
+    ellipse(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 25, 8, 8);
+    ellipse(x * BLOCK_SIZE + 15, y * BLOCK_SIZE + 25, 8, 8);
+    ellipse(x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 25, 8, 8);
+
+    fill(175, 175, 175);
+    if (facing == 0)
+      triangle(x * BLOCK_SIZE + 5, y * BLOCK_SIZE + 30, x * BLOCK_SIZE + 25, y * BLOCK_SIZE + 30, x * BLOCK_SIZE + 15, y * BLOCK_SIZE + 45); //You is facing down, draw the drill downwards
+    if (facing == 1)
+      triangle(x * BLOCK_SIZE, y * BLOCK_SIZE + 5, x * BLOCK_SIZE, y * BLOCK_SIZE + 25, x * BLOCK_SIZE - 15, y * BLOCK_SIZE + 15); //You is facing left, draw the drill leftie
+    if (facing == 2)
+      triangle(x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 5, x * BLOCK_SIZE + 30, y * BLOCK_SIZE + 25, x * BLOCK_SIZE + 45, y * BLOCK_SIZE + 15); //You is facing right, draw the drill righty tighty
+  }
+
+ void moveYou(int direction)
+  {
+    if (movementCooldown == 0)
+    {
+      if (direction == 0) // You's direction: DOWN
+      {
+        if (you.y != 19 && level.layout[x][y + 1].type != 2)
+        {
+          if (level.layout[x][y + 1].type != 0 && level.layout[x][y + 1].type != 1 && level.layout[x][y + 1].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+            --fuel;
+          if (level.layout[x][y + 1].type == 10)
+          {
+            fuel += 4;
+          }
+          this.y += 1;
+          if (level.layout[x][y].type != 10)
+            points += level.layout[x][y].value;
+          
+           if (level.layout[x][y].type != 9)
+            level.layout[x][y].setAs(0); //When you dig through something it turns into air, this does not happen when you dig into a pool of lava
+          movementCooldown = movementLimiter;
+          you.facing = 0;
+        }
+      }
+      else if (direction == 1) // You's direction: LEFT
+      {
+        if (you.x != 0 && level.layout[x - 1][y].type != 2)
+        {
+          if (level.layout[x - 1][y].type != 0 && level.layout[x - 1][y].type != 1 && level.layout[x - 1][y].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+            --fuel;
+          if (level.layout[x - 1][y].type == 10)
+          {
+            fuel += 4;
+          }
+          this.x -= 1;
+          if (level.layout[x][y].type != 10)
+            points += level.layout[x][y].value;
+          
+           if (level.layout[x][y].type != 9)
+            level.layout[x][y].setAs(0); //When you dig through something it turns into air, this does not happen when you dig into a pool of lava
+          movementCooldown = movementLimiter;
+          you.facing = 1;
+        }
+      }
+      else if (direction == 2) // You's direction: RIGHT
+      {
+        if (you.x != 19 && level.layout[x + 1][y].type != 2)
+        {
+          if (level.layout[x + 1][y].type != 0 && level.layout[x + 1][y].type != 1 && level.layout[x + 1][y].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+            --fuel;
+          if (level.layout[x + 1][y].type == 10)
+          {
+            fuel += 4;
+          }
+          this.x += 1;
+          if (level.layout[x][y].type != 10)
+            points += level.layout[x][y].value;
+          
+           if (level.layout[x][y].type != 9)
+            level.layout[x][y].setAs(0); //When you dig through something it turns into air, this does not happen when you dig into a pool of lava
+          movementCooldown = movementLimiter;
+          you.facing = 2;
+        }
+      }
+      else if (direction == 3)
+      {
+        if (you.y == 19)
+          newLevel();
+      }
+    }
+  }
+
+  void limitFuel()
+  {
+    if (fuel >= maxFuel)
+      fuel = maxFuel;
+  }
+
+  void checkAlive()
+  {
+    if (you.insideOf(9))
+      alive = false;
+    if (fuel <= 0)
+      alive = false;
+    if (!alive && frameCount % 25 == 0)
+      println(frameCount + ": you're dead!");
+  }
+}
+
+
