@@ -15,10 +15,10 @@ void setup() {
   size(600, 600);
   frameRate(30);
   startGame();
+  smooth();
 }
 
 void draw() {
-  println(score + " " + points);
   you.updateYou();
   if (keyPressed)
     if (key == CODED) {
