@@ -81,7 +81,7 @@ class You {
 
  void moveYou(int direction)
   {
-    if (movementCooldown == 0)
+    if (movementCooldown == 0 && alive)
     {
       if (direction == 0) // You's direction: DOWN
       {
@@ -167,5 +167,4 @@ class You {
       println(frameCount + ": you're dead!");
   }
 }
-
 
