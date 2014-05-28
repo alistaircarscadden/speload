@@ -56,6 +56,8 @@ class Block {
       return 255;
     case 10:
       return 65;
+    case 11:
+      return 10;
     default:
       return 0;
     }
@@ -85,6 +87,8 @@ class Block {
       return 0;
     case 10:
       return 40;
+    case 11:
+      return 151;
     default:
       return 0;
     }
@@ -114,6 +118,8 @@ class Block {
       return 0;
     case 10:
       return 5;
+    case 11:
+      return 255;
     default:
       return 0;
     }
