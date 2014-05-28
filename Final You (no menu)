@@ -87,17 +87,17 @@ class You {
       {
         if (you.y != 19 && level.layout[x][y + 1].type != 2)
         {
-          if (level.layout[x][y + 1].type != 0 && level.layout[x][y + 1].type != 1 && level.layout[x][y + 1].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+          if (level.layout[x][y + 1].type != 0 && level.layout[x][y + 1].type != 1 && level.layout[x][y + 1].type != 10 && level.layout[x][y].type != 11) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
             --fuel;
           if (level.layout[x][y + 1].type == 10)
           {
             fuel += 4;
           }
           this.y += 1;
-          if (level.layout[x][y].type != 10)
+          if (level.layout[x][y].type != 10 && level.layout[x][y].type != 11)
             points += level.layout[x][y].value;
           
-           if (level.layout[x][y].type != 9)
+           if (level.layout[x][y].type != 9 && level.layout[x][y].type != 11)
             level.layout[x][y].setAs(0); //When you dig through something it turns into air, this does not happen when you dig into a pool of lava
           movementCooldown = movementLimiter;
           you.facing = 0;
@@ -107,17 +107,17 @@ class You {
       {
         if (you.x != 0 && level.layout[x - 1][y].type != 2)
         {
-          if (level.layout[x - 1][y].type != 0 && level.layout[x - 1][y].type != 1 && level.layout[x - 1][y].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+          if (level.layout[x - 1][y].type != 0 && level.layout[x - 1][y].type != 1 && level.layout[x - 1][y].type != 10 && level.layout[x][y].type != 11) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
             --fuel;
           if (level.layout[x - 1][y].type == 10)
           {
             fuel += 4;
           }
           this.x -= 1;
-          if (level.layout[x][y].type != 10)
+          if (level.layout[x][y].type != 10 && level.layout[x][y].type != 11)
             points += level.layout[x][y].value;
           
-           if (level.layout[x][y].type != 9)
+           if (level.layout[x][y].type != 9 && level.layout[x][y].type != 11)
             level.layout[x][y].setAs(0); //When you dig through something it turns into air, this does not happen when you dig into a pool of lava
           movementCooldown = movementLimiter;
           you.facing = 1;
@@ -127,17 +127,17 @@ class You {
       {
         if (you.x != 19 && level.layout[x + 1][y].type != 2)
         {
-          if (level.layout[x + 1][y].type != 0 && level.layout[x + 1][y].type != 1 && level.layout[x + 1][y].type != 10) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
+          if (level.layout[x + 1][y].type != 0 && level.layout[x + 1][y].type != 1 && level.layout[x + 1][y].type != 10 && level.layout[x][y].type != 11) // Decrease fuel if you're digging through NOT air/dirt/fuelblock
             --fuel;
           if (level.layout[x + 1][y].type == 10)
           {
             fuel += 4;
           }
           this.x += 1;
-          if (level.layout[x][y].type != 10)
+          if (level.layout[x][y].type != 10 && level.layout[x][y].type != 11)
             points += level.layout[x][y].value;
           
-           if (level.layout[x][y].type != 9)
+           if (level.layout[x][y].type != 9 && level.layout[x][y].type != 11)
             level.layout[x][y].setAs(0); //When you dig through something it turns into air, this does not happen when you dig into a pool of lava
           movementCooldown = movementLimiter;
           you.facing = 2;
@@ -167,4 +167,3 @@ class You {
       println(frameCount + ": you're dead!");
   }
 }
-
