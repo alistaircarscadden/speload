@@ -1,0 +1,26 @@
+/**
+  Hack description:
+  Click to teleport
+  */
+void mousePressed()
+{
+  you.x = mouseX / BLOCK_SIZE;
+  you.y = mouseY / BLOCK_SIZE;
+  level.layout[you.x][you.y] = new Block(0);
+}
+
+/**
+  Hack description
+  + and - change currentLevel
+  */
+void keyPressed()
+{
+  if(key == '=')
+  {
+    currentLevel ++;
+  }
+  if(key == '-')
+  {
+    currentLevel --;
+  }
+}
