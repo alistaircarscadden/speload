@@ -1,0 +1,205 @@
+Level level; //making "level.layout[x][y].type" the identifier for the blocks
+You you = new You(10);
+int [] highscoreValues = new int [10];
+
+int youR = (int) random(256);
+int youG = (int) random(256);
+int youB = (int) random(256);
+
+final int BLOCK_SIZE = 30;
+int currentLevel = 1;
+int points = 0;
+int score = 0;
+boolean menuInput = true;
+int menuChoice = 1;
+/*  
+    Choice:  What:
+    1        Start screen
+    2        Play
+    3        Instructions
+    4        Highscores
+    5        Exit
+*/
+void setup() {
+  size(600, 600);
+  frameRate(30);
+  startGame();
+  smooth();
+  noStroke();
+}
+
+void draw() {
+  if(!menuInput)
+  {
+    you.updateYou();
+    if (keyPressed)
+      if (key == CODED) {
+        // Movement: Down
+        if (keyCode == DOWN) {
+          you.moveYou(0);
+        }
+        // Movement: Left
+        else if (keyCode == LEFT) {
+          you.moveYou(1);
+        }
+        // Movement: Right
+        else if (keyCode == RIGHT) {
+          you.moveYou(2);
+        }
+        // Movement : New Level Yo (UP)
+        else if (keyCode == UP)
+        {
+          you.moveYou(3);
+        }
+      }
+  }
+  level.drawLayout();
+  if(menuInput)
+    drawMenu(menuChoice);
+  
+    if (you.alive && !menuInput)
+    {
+      you.drawYou(you.x, you.y, you.facing);
+      you.drawHUD(score);
+      level.update(); //Lava spread mainly
+    }
+
+  if(!you.alive)
+  {
+    menuInput = true;
+    sortHighscores();
+    menuChoice = 6;
+    you.alive = true;
+  }
+}
+
+void startGame()
+{
+  currentLevel = 1;
+  score = 0;
+  level = new Level();
+}
+
+void newLevel()
+{
+  currentLevel++;
+  level = new Level();
+  you.y = 0;
+  score = points * currentLevel;
+}
+
+void mouseReleased()
+{
+  if(menuChoice != 1 && menuChoice != 6)
+  {
+    menuChoice = 1;
+  }
+  else if(menuChoice == 1 && mouseX >= 150 && mouseX <= 450 && mouseY >= 150 && mouseY <= 200)
+  {
+    menuChoice = 2;
+  } 
+  else if(menuChoice == 1 && mouseX >= 150 && mouseX <= 450 && mouseY >= 250 && mouseY <= 300)
+  {
+    menuChoice = 3;
+  }
+  else if(menuChoice == 1 && mouseX >= 150 && mouseX <= 450 && mouseY >= 350 && mouseY <= 400)
+  {
+    menuChoice = 4;
+  }
+  else if(menuChoice == 1 && mouseX >= 150 && mouseX <= 450 && mouseY >= 450 && mouseY <= 500)
+  {
+    menuChoice = 5;
+  }
+  if(menuChoice == 6 && mouseX >= 125 && mouseX <= 275 && mouseY >= 350 && mouseY <= 425)
+  {
+    menuChoice = 1;
+  }
+  else if(menuChoice == 6 && mouseX >= 325 && mouseX <= 475 && mouseY >= 350 && mouseY <= 425)
+  {
+    menuChoice = 5;
+  }
+}
+
+void drawMenu(int menuChoice)
+{
+  textAlign(CENTER, CENTER);
+  
+  if(menuChoice == 1)
+  {
+    stroke(0, 0, 255);
+    fill(0, 0, 255);
+    textSize(96);
+    text("SPELOAD", 300, 75);
+    textSize(36);
+    text("Play Game", 300, 175);
+    text("Instructions", 300, 275);
+    text("HighScores", 300, 375);
+    text("Exit", 300, 475);
+    text("Current Highscore: " + highscoreValues[0], 300, 575);
+    noFill();
+    rect(150, 150, 300, 50);
+    rect(150, 250, 300, 50);
+    rect(150, 350, 300, 50);
+    rect(150, 450, 300, 50);
+    noStroke();
+  }
+  else if(menuChoice == 2)
+  {
+    menuInput = false;
+    startGame();
+  }
+  else if(menuChoice == 3)
+  {
+    //insert instructions graphics
+  }
+  else if(menuChoice == 4)
+  {
+    fill(0, 0, 255);
+    textSize(72);
+    text("Highscores", 300, 50);
+    textSize(24);
+    textAlign(LEFT);
+    for(int i = 1; i <= 10; i++)
+    {
+      text(i, 75, 75 + 50 * i);
+      text(highscoreValues[i - 1], 125, 75 + 50 * i);
+    }
+  }
+  else if(menuChoice == 5)
+  {
+    exit();
+  }
+  else if(menuChoice == 6)
+  {
+    fill(0, 0, 255);
+    textAlign(CENTER);
+    textSize(120);
+    text("YOU DIED", 300, 300);
+    textSize(36);
+    text("Menu", 200, 400);
+    text("Exit", 400, 400);
+    noFill();
+    stroke(0, 0, 255);
+    rect(125, 350, 150, 75);
+    rect(325, 350, 150, 75);
+  }
+  
+  textAlign(LEFT);
+  noStroke();
+}
+
+void sortHighscores() // Doesn't work
+{
+  for(int i = 0; i < highscoreValues.length; i++)
+  {
+    if(score >= highscoreValues[i])
+    {
+      score = highscoreValues[i];
+      for(int j = i + 1; j < highscoreValues.length; j++)
+      {
+        highscoreValues[j] = highscoreValues[i];
+      }
+      break;
+    }
+  }
+}
