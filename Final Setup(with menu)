@@ -52,6 +52,10 @@ void draw() {
           you.moveYou(3);
         }
       }
+      else if(key == BACKSPACE)
+      {
+        you.alive = false;
+      }
   }
   level.drawLayout();
   if(menuInput)
@@ -90,7 +94,7 @@ void newLevel()
 
 void mouseReleased()
 {
-  if(menuChoice != 1 && menuChoice != 6)
+  if((menuChoice == 3 || menuChoice == 4) && mouseX >= 495 && mouseX <= 570 && mouseY >= 525 && mouseY <= 565)
   {
     menuChoice = 1;
   }
@@ -126,8 +130,8 @@ void drawMenu(int menuChoice)
   
   if(menuChoice == 1)
   {
-    stroke(0, 0, 255);
-    fill(0, 0, 255);
+    stroke(255);
+    fill(255);
     textSize(96);
     text("SPELOAD", 300, 75);
     textSize(36);
@@ -141,7 +145,6 @@ void drawMenu(int menuChoice)
     rect(150, 250, 300, 50);
     rect(150, 350, 300, 50);
     rect(150, 450, 300, 50);
-    noStroke();
   }
   else if(menuChoice == 2)
   {
@@ -150,11 +153,40 @@ void drawMenu(int menuChoice)
   }
   else if(menuChoice == 3)
   {
-    //insert instructions graphics
+    fill(239, 247, 130, 120);
+    rect(0, 80, 600, 520);
+    fill(255);
+    textAlign(CENTER);
+    textSize(96);
+    text("Instructions", 300, 75);
+    textSize(18);
+    text("Collect as many points as possible by mining ores", 300, 125);
+    text("and going as far down as possible", 300, 150);
+    text("Dig using the DOWN, LEFT and RIGHT arrow keys (You can't dig up)", 300, 175);
+    text("Regular minerals are different colours with different values", 300, 200);
+    text("Mine through gas tanks to refill your fuel tank", 300, 225);
+    text("You can't mine through stone", 300, 275);
+    text("Lava is red and will kill you instantly if you mine it", 300, 300);
+    text("It also moves sideways and down through air so don't dig beside it", 300, 325);
+    text("When you reach the bottom of a level", 300, 350);
+    text("press the UP arrow key to go to the next level", 300, 375);
+    text("Hit the Backspace button to 'self-destruct' if you get stuck", 300, 400);
+    text("Your current stats are shown in the top-left corner", 300, 425);
+    text("Your fuel meter is indicated by the number of white blocks", 300, 450);
+    text("You lose one block of fuel every time you mine a REGULAR MINERAL", 300, 475);
+    text("If your fuel meter reaches zero, you die", 300, 500); 
+    text("Your score and current level are updated", 300, 525);
+    text("at the end of each level", 300, 550);
+    textSize(24);
+    textAlign(LEFT);
+    text("Menu", 500, 550);
+    noFill();
+    stroke(255);
+    rect(495, 525, 75, 40);
   }
   else if(menuChoice == 4)
   {
-    fill(0, 0, 255);
+    fill(255);
     textSize(72);
     text("Highscores", 300, 50);
     textSize(24);
@@ -164,6 +196,10 @@ void drawMenu(int menuChoice)
       text(i, 75, 75 + 50 * i);
       text(highscoreValues[i - 1], 125, 75 + 50 * i);
     }
+    text("Menu", 500, 550);
+    noFill();
+    stroke(255);
+    rect(495, 525, 75, 40);
   }
   else if(menuChoice == 5)
   {
@@ -171,26 +207,27 @@ void drawMenu(int menuChoice)
   }
   else if(menuChoice == 6)
   {
-    fill(0, 0, 255);
+    fill(255);
     textAlign(CENTER);
     textSize(120);
     text("YOU DIED", 300, 300);
     textSize(36);
     text("Menu", 200, 400);
     text("Exit", 400, 400);
+    stroke(255);
     noFill();
-    stroke(0, 0, 255);
     rect(125, 350, 150, 75);
     rect(325, 350, 150, 75);
   }
   
   textAlign(LEFT);
+  noFill();
   noStroke();
 }
 
-void sortHighscores() // Doesn't work
+void sortHighscores()
 {
-  for(int i = 0; i < highscoreValues.length; i++)
+  for(int i = highscoreValues.length; i < highscoreValues.length; i++)
   {
     if(score >= highscoreValues[i])
     {
